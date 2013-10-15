@@ -1,0 +1,3 @@
+$.fn.hexed = function(settings){
+
+};
