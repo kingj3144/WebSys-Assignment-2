@@ -8,7 +8,7 @@ $.fn.hexed = function(settings){
 		slider.attr("name", name+"Range");
 		slider.attr("id", name+"Range");
 		slider.attr("min", 0);
-		slider.attr("max",250);
+		slider.attr("max",255);
 		slider.attr("value", 0);
 		slider.value = 0;
 
@@ -41,8 +41,40 @@ $.fn.hexed = function(settings){
 		return $("#" + name + "Text:First").value;
 	}
 
+	function createSubmitButton(){
+		var button = $("<br><input>");
+		button.attr("type", "button");
+		button.attr("value", "GO");
+
+		return button;
+	}
+
+	function createTimer(){
+		var text = $("<p></p>");		
+		var time = 0;
+		text.attr("id", "timer");
+		text.html("0 seconds");
+		return this;
+	}
+	function getTime(timer){
+		return timer.time;
+	}
+
+	function update(timer){
+		timer.time = timer.time + 1;
+		$("#timer").html(timer.time + "seconds");
+
+	}
+
 	this.append(createSlider("Red"));
 	this.append(createSlider("Green"));
 	this.append(createSlider("Blue"));
+	this.append(createSubmitButton());
+	
+	var timer = createTimer();
+	this.append(timer.text);
+	while(getTime(timer) < 30){
+		$.delay(1000).update(timer);
+	}
 };
 
