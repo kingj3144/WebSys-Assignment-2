@@ -10,12 +10,14 @@ $.fn.hexed = function(settings){
 		slider.attr("min", 0);
 		slider.attr("max",250);
 		slider.attr("value", 0);
+		slider.value = 0;
 
 		var textBox = $("<input>");
 		textBox.attr("name", name+"Text");
 		textBox.attr("id", name+"Text");
 		textBox.attr("type", "text");
 		textBox.attr("value", 0);
+		textBox.value = 0;
 
 		slider.change( function(){
 			$("#" + name + "Text").val(this.value);
@@ -35,8 +37,12 @@ $.fn.hexed = function(settings){
 		return container;
 	}
 
+	function getSliderValue(name){
+		return $("#" + name + "Text:First").value;
+	}
+
 	this.append(createSlider("Red"));
-
-
+	this.append(createSlider("Green"));
+	this.append(createSlider("Blue"));
 };
 
