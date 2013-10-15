@@ -5,8 +5,8 @@ $.fn.hexed = function(settings){
 	function createSlider(name){
 		var slider = $("<input>");
 		slider.attr("type", "range");
-		slider.attr("name", name + "Range");
-		slider.attr("id", name + "Range");
+		slider.attr("name", name+"Range");
+		slider.attr("id", name+"Range");
 		slider.attr("min", 0);
 		slider.attr("max",250);
 		slider.attr("value", 0);
@@ -18,12 +18,11 @@ $.fn.hexed = function(settings){
 		textBox.attr("value", 0);
 
 		slider.change( function(){
-			$("#" + name + "Text").attr("value", this.value);
+			$("#" + name + "Text").val(this.value);
 		});
 
-		textBox.change( function(){
-			console.debug("HALP");
-			$("#" + name + "Range").attr("value", parseInt(this.value));
+		textBox.change( function(){	
+			$("#" + name + "Range").val( parseInt(this.value));
 		});
 
 		var container = $("<span></span>");
