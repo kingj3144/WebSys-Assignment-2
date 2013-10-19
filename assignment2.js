@@ -82,22 +82,6 @@ $.fn.hexed = function(settings){
 
 	}
 
-	// function createTimer(){
-	// 	var text = $("<p></p>");		
-	// 	var time = 0;
-	// 	text.attr("id", "timer");
-	// 	text.html("0 seconds");
-	// 	return this;
-	// }
-	// function getTime(timer){
-	// 	return timer.time;
-	// }
-
-	// function update(timer){
-	// 	timer.time = timer.time + 1;
-	// 	$("#timer").html(timer.time + "seconds");
-
-	// }
 	var color = getRandomColor();
 	this.html("");
 	this.append(createCanvas(color));
@@ -107,10 +91,5 @@ $.fn.hexed = function(settings){
 	this.append(createSubmitButton());
 	scoreGame(color, "Red", "Green", "Blue");
 	
-	// var timer = createTimer();
-	// this.append(timer.text);
-	// while(getTime(timer) < 30){
-	// 	$.delay(1000).update(timer);
-	// }
 };
 
