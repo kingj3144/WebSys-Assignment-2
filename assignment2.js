@@ -81,7 +81,7 @@ $.fn.hexed = function(settings){
 	  * @return - The value of the slider
 	  */
 	function getSliderValue(name){
-		return $("#" + name + "Text:First").value;
+		return $("#" + name + "Text")[0].value;
 	}
 
 	/** Funtion to create the submit button
@@ -92,7 +92,21 @@ $.fn.hexed = function(settings){
 		button.attr("type", "button");
 		button.attr("value", "GO");
 
+		button.click( function(){
+			scoreGame(color, "Red", "Green", "Blue");
+		});
+
 		return button;
+	}
+
+	/** Function to create an empty area for the scores to go
+	  * @return - jQuery object with a <div> for the scoreboard
+	  */
+	function createScoreBoard(){
+		var scoreBoard = $("<div></div>");
+		scoreBoard.attr("id", "scoreBoard");
+
+		return scoreBoard;
 	}
 
 	/** Function to generate a random 6 digit hex value
@@ -103,7 +117,19 @@ $.fn.hexed = function(settings){
 	}
 
 	function scoreGame(color, name1, name2, name3){
+		var score = getSliderValue(name1) + getSliderValue(name2) + getSliderValue(name3);
+		console.debug(score);
 
+		addScore(score);
+	}
+
+	function addScore(score, color){
+		var scoreBoard = $("#scoreBoard");
+		var scoreElement =$("<span></span>");
+		//scoreElement.style("background: "+ color);
+		scoreElement.html(score);
+
+		scoreBoard.append(scoreElement);
 	}
 
 	//Get a random hex color
@@ -118,6 +144,7 @@ $.fn.hexed = function(settings){
 	this.append(createSlider("Green"));
 	this.append(createSlider("Blue"));
 	this.append(createSubmitButton());
-	scoreGame(color, "Red", "Green", "Blue");
+	this.append(createScoreBoard());
+	
 
 };
