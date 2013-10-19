@@ -1,11 +1,16 @@
 $.fn.hexed = function(settings){
 
-
+	/** Function creates a HTML Canvas and adds a circle of color
+	  * @param color - the color as a hex string to make the circle
+	  * @return - a jQuery object contain the created canvas
+	 */
 	function createCanvas(color){
+		//create a blank canvas
 		var canvas = $("<canvas></canvas>");
 		canvas.attr("id", "canvas");
 		canvas.attr("heigh", 200);
 		canvas.attr("width", 200);
+
 		var context = canvas[0].getContext("2d");
 		// Set the color of the fill
 		context.fillStyle="#" + color;
@@ -26,8 +31,12 @@ $.fn.hexed = function(settings){
 		return canvas;
 	}
 
-
+	/** Funtion that created a slider with a title and textbox
+	  * @param name - the name of the bar, will be used to make unique id tags
+	  * @returns - jQuery object containing a span with a title, slider and textbox
+	  */
 	function createSlider(name){
+		//Create the slider
 		var slider = $("<input>");
 		slider.attr("type", "range");
 		slider.attr("name", name+"Range");
@@ -37,6 +46,7 @@ $.fn.hexed = function(settings){
 		slider.attr("value", 0);
 		slider.value = 0;
 
+		//Create the text box
 		var textBox = $("<input>");
 		textBox.attr("name", name+"Text");
 		textBox.attr("id", name+"Text");
@@ -44,14 +54,17 @@ $.fn.hexed = function(settings){
 		textBox.attr("value", 0);
 		textBox.value = 0;
 
+		//Link the slider to the textbox
 		slider.change( function(){
 			$("#" + name + "Text").val(this.value);
 		});
 
+		//Link the text box to the slider
 		textBox.change( function(){	
 			$("#" + name + "Range").val( parseInt(this.value));
 		});
 
+		//Create a span to contain the slider and textbox
 		var container = $("<span></span>");
 		container.addClass("slider");
 		container.attr("id", name);
@@ -59,13 +72,21 @@ $.fn.hexed = function(settings){
 		container.append(slider);
 		container.append(textBox);
 
+		//retrun the container with the slider and the text box
 		return container;
 	}
 
+	/** Function to get the value of a slider based on the name
+	  * @param - The name of the slider
+	  * @return - The value of the slider
+	  */
 	function getSliderValue(name){
 		return $("#" + name + "Text:First").value;
 	}
 
+	/** Funtion to create the submit button
+	  * @return a jQuery object with a submit button
+	  */
 	function createSubmitButton(){
 		var button = $("<br><input>");
 		button.attr("type", "button");
@@ -74,6 +95,9 @@ $.fn.hexed = function(settings){
 		return button;
 	}
 
+	/** Function to generate a random 6 digit hex value
+	  * @return - a 6 digit hex value
+	  */
 	function getRandomColor(){
 		return Math.floor(Math.random()*16777215).toString(16);
 	}
@@ -82,14 +106,18 @@ $.fn.hexed = function(settings){
 
 	}
 
+	//Get a random hex color
 	var color = getRandomColor();
+
+	//Clear any existing html out of the game object
 	this.html("");
+
+	//Added the needed elements for the game
 	this.append(createCanvas(color));
 	this.append(createSlider("Red"));
 	this.append(createSlider("Green"));
 	this.append(createSlider("Blue"));
 	this.append(createSubmitButton());
 	scoreGame(color, "Red", "Green", "Blue");
-	
-};
 
+};
