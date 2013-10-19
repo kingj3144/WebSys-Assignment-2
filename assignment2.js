@@ -13,13 +13,14 @@ $.fn.hexed = function(settings){
 		// Start a new path
 		context.beginPath();
 
-		context.arc(100,100,50,0,Math.PI*2,true);
+		context.arc(125,75,50,0,Math.PI*2,true);
 
 		// Close the path
 		context.closePath();
 
 		// Fills in the arc. Since we set the fillStyle to have color red, it fill it red.
 		context.fill();
+		context.lineWidth = 3;
 		context.stroke();
 
 		return canvas;
@@ -78,7 +79,7 @@ $.fn.hexed = function(settings){
 	}
 
 	function scoreGame(color, name1, name2, name3){
-		
+
 	}
 
 	// function createTimer(){
