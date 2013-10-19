@@ -117,16 +117,26 @@ $.fn.hexed = function(settings){
 	}
 
 	function scoreGame(color, name1, name2, name3){
-		var score = getSliderValue(name1) + getSliderValue(name2) + getSliderValue(name3);
+		var score = scoreHelper(color.substring(0, 2), getSliderValue(name1)) + 
+					scoreHelper(color.substring(2, 4), getSliderValue(name2)) + 
+					scoreHelper(color.substring(4, 6), getSliderValue(name3));
 		console.debug(score);
-
 		addScore(score);
+	}
+
+	function scoreHelper(desired, actual){
+		if(desired == undefined || actual == undefined){
+			console.debug("Something is wrong");
+		}
+		var score = (parseInt(desired, 16) - actual.valueOf())/255 * 100;
+		console.debug(score);
+		return score;
 	}
 
 	function addScore(score, color){
 		var scoreBoard = $("#scoreBoard");
-		var scoreElement =$("<span></span>");
-		//scoreElement.style("background: "+ color);
+		var scoreElement =$("<span></span><br>");
+		scoreElement.css("background: "+ color);
 		scoreElement.html(score);
 
 		scoreBoard.append(scoreElement);
