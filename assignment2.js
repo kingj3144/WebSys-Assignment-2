@@ -1,5 +1,8 @@
 $.fn.hexed = function(settings){
 
+	var difficulty = 5;
+	var startTime;
+
 	/** Function creates a HTML Canvas and adds a circle of color
 	  * @param color - the color as a hex string to make the circle
 	  * @return - a jQuery object contain the created canvas
@@ -117,10 +120,15 @@ $.fn.hexed = function(settings){
 	}
 
 	function scoreGame(color, name1, name2, name3){
-		var score = scoreHelper(color.substring(0, 2), getSliderValue(name1)) + 
-					scoreHelper(color.substring(2, 4), getSliderValue(name2)) + 
-					scoreHelper(color.substring(4, 6), getSliderValue(name3));
+		var score = (Math.abs(scoreHelper(color.substring(0, 2), getSliderValue(name1))) + 
+					Math.abs(scoreHelper(color.substring(2, 4), getSliderValue(name2))) + 
+					Math.abs(scoreHelper(color.substring(4, 6), getSliderValue(name3))))/3;
 		console.debug(score);
+		score = ((15 - difficulty - score)/(15 - difficulty))*(15000 - (startTime - (new Date()).getTime()));
+		console.debug(score);
+		if (score < 0) {
+			score = 0;
+		}
 		addScore(score);
 	}
 
@@ -129,14 +137,14 @@ $.fn.hexed = function(settings){
 			console.debug("Something is wrong");
 		}
 		var score = (parseInt(desired, 16) - actual.valueOf())/255 * 100;
-		console.debug(score);
+		// console.debug(score);
 		return score;
 	}
 
 	function addScore(score, color){
 		var scoreBoard = $("#scoreBoard");
 		var scoreElement =$("<span></span><br>");
-		scoreElement.css("background: "+ color);
+		scoreElement.css("background", color);
 		scoreElement.html(score);
 
 		scoreBoard.append(scoreElement);
@@ -147,14 +155,13 @@ $.fn.hexed = function(settings){
 
 	//Clear any existing html out of the game object
 	this.html("");
-
+	startTime = (new Date()).getTime();
 	//Added the needed elements for the game
 	this.append(createCanvas(color));
 	this.append(createSlider("Red"));
 	this.append(createSlider("Green"));
 	this.append(createSlider("Blue"));
 	this.append(createSubmitButton());
-	this.append(createScoreBoard());
-	
+	this.append(createScoreBoard());	
 
 };
