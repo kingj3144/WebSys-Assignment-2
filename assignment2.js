@@ -124,7 +124,7 @@ $.fn.hexed = function(settings){
 					Math.abs(scoreHelper(color.substring(2, 4), getSliderValue(name2))) + 
 					Math.abs(scoreHelper(color.substring(4, 6), getSliderValue(name3))))/3;
 		console.debug(score);
-		score = ((15 - difficulty - score)/(15 - difficulty))*(15000 - (startTi	me - (new Date()).getTime()));
+		score = ((15 - difficulty - score)/(15 - difficulty))*(15000 - (startTime - (new Date()).getTime()));
 		console.debug(score);
 		if (score < 0) {
 			score = 0;
