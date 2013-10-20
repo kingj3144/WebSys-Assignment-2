@@ -1,6 +1,6 @@
 $.fn.hexed = function(settings){
 
-	var difficulty = 5;
+	var difficulty = settings.difficulty;
 	var startTime;
 
 	/** Function creates a HTML Canvas and adds a circle of color
@@ -124,12 +124,12 @@ $.fn.hexed = function(settings){
 					Math.abs(scoreHelper(color.substring(2, 4), getSliderValue(name2))) + 
 					Math.abs(scoreHelper(color.substring(4, 6), getSliderValue(name3))))/3;
 		console.debug(score);
-		score = ((15 - difficulty - score)/(15 - difficulty))*(15000 - (startTime - (new Date()).getTime()));
+		score = ((15 - difficulty - score)/(15 - difficulty))*(15000 - (startTi	me - (new Date()).getTime()));
 		console.debug(score);
 		if (score < 0) {
 			score = 0;
 		}
-		addScore(score);
+		addScore(Math.round(score), color);
 	}
 
 	function scoreHelper(desired, actual){
@@ -144,7 +144,9 @@ $.fn.hexed = function(settings){
 	function addScore(score, color){
 		var scoreBoard = $("#scoreBoard");
 		var scoreElement =$("<span></span><br>");
-		scoreElement.css("background", color);
+		scoreElement.css("background-color", "#" + color);
+		scoreElement.css("width", "200px");
+		scoreElement.css("boader-style", "solid");
 		scoreElement.html(score);
 
 		scoreBoard.append(scoreElement);
