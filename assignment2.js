@@ -11,7 +11,7 @@ $.fn.hexed = function(settings){
 		//create a blank canvas
 		var canvas = $("<canvas></canvas>");
 		canvas.attr("id", "canvas");
-		canvas.attr("heigh", 200);
+		canvas.attr("height", 200);
 		canvas.attr("width", 200);
 
 		var context = canvas[0].getContext("2d");
