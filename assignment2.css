@@ -2,7 +2,7 @@
   float: left;
   clear: left;
   width: 325px;
-  margin: 15px;
+  /*margin: 15px;*/
 }
 
 #RedRange .ui-slider-range { background: #ef2929; }
@@ -18,10 +18,12 @@
   margin-top: 18px;
   margin-left: 10px;
   background-image: none;
+  margin-bottom: 15px;
 }
 
 #RedText {
-  margin: 12px;
+  /*margin: 12px;*/
+  margin-bottom:15px;
   border: solid; 
   color: #ef2929; 
   font-weight: bold;
@@ -30,7 +32,8 @@
 }
 
 #GreenText {
-  margin: 12px;
+  /*margin: 12px;*/
+  margin-bottom:15px;
   border: solid; 
   color: #8ae234; 
   font-weight: bold;
@@ -39,7 +42,8 @@
 }
 
 #BlueText {
-  margin: 12px;
+  /*margin: 12px;*/
+  margin-bottom:15px;
   border: solid; 
   color: #729fcf; 
   font-weight: bold;
@@ -53,7 +57,7 @@ input {
 /* following will be used to center align all the content, to make it 'nicer' to use */
 .center-content {
     display: block;
-    width: 450px;
+    width: 500px;
     margin-left: auto;
     margin-right: auto;
     text-align: center;

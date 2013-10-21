@@ -125,9 +125,9 @@ $.fn.hexed = function(settings){
 		if(getSliderValue(name1) === '1'){
 
 		}
-        var redScore = scoreHelper(color.substring(0, 2), parseInt(getSliderValue(name1), 16));
-        var blueScore = scoreHelper(color.substring(2, 4), parseInt(getSliderValue(name2), 16));
-        var greenScore = scoreHelper(color.substring(4, 6), parseInt(getSliderValue(name3), 16));
+        var redScore = Math.abs(scoreHelper(color.substring(0, 2), parseInt(getSliderValue(name1), 16)));
+        var blueScore = Math.abs(scoreHelper(color.substring(2, 4), parseInt(getSliderValue(name2), 16)));
+        var greenScore = Math.abs(scoreHelper(color.substring(4, 6), parseInt(getSliderValue(name3), 16)));
 		var score = (redScore + blueScore + greenScore)/3;
 		
 		console.debug(score);
@@ -145,7 +145,7 @@ $.fn.hexed = function(settings){
 		if(desired == undefined || actual == undefined){
 			console.debug("Something is wrong");
 		}
-		var score = ((parseInt(desired, 16) - (parseInt(actual, 16)))/255) * 100;
+		var score = ((parseInt(desired, 16) - actual)/255) * 100;
 		
 		// console.debug(score);
 		return Math.abs(score);
