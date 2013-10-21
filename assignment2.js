@@ -29,7 +29,7 @@ $.fn.hexed = function(settings){
           min: 0,
           max: 255,
           slide: function( event, ui ) {
-            $(name+"Text").val( ui.value );             
+            $(name+"Text").val( ui.value.toString(16).toUpperCase() );             
           }
         });
 
