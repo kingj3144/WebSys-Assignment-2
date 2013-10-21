@@ -70,7 +70,7 @@ $.fn.hexed = function(settings){
 	function createSubmitButton(){
 		var button = $("<br><input>");
 		button.attr("type", "button");
-		button.attr("value", "GO");
+		button.attr("value", "Got it!");
 		button.attr("id", "submitButton");
         //the if statement makes sure that the user starts the game before they submit any 
 		  //answer to the test. 
@@ -170,7 +170,7 @@ $.fn.hexed = function(settings){
 			turns -= 1;
 			checkClick = 0;
 			$("#submitButton").prop("value", "Next");
-			$("#turns-left").text("You have " + turns + "turns left!");
+			$("#turns-left").text("You have " + turns + " turns left!");
 		//check to see if the users is ready for their next turn
 		} else if (turns >0){
 			checkClick = 1;
