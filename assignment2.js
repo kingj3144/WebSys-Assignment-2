@@ -47,7 +47,7 @@ $.fn.hexed = function(settings){
 
         //Link the text box to the slider
         $(name+"Text").change(function () {
-            $(name+"Range").slider("value", parseInt(this.value));
+            $(name+"Range").slider("value", parseInt(this.value, 16));
         }); 
 
         //Show the text box
@@ -160,7 +160,7 @@ $.fn.hexed = function(settings){
 		scoreElement.attr("class", "scoreElement");
 		scoreElement.css("background-color", "#" + color);
 		scoreElement.html('<font style="background-color:white;">&nbsp;Score: '+score+
-                            " | Red: "+redScore+"% Blue: "+blueScore+"% Green: "+greenScore+"%</font>");
+                            " | Red: "+redScore+"% Blue: "+blueScore+"% Green: "+greenScore+"%&nbsp</font>");
 
 		scoreBoard.append(scoreElement);
 		// scoreBoard.append($("<br />"));
