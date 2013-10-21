@@ -184,6 +184,7 @@ $.fn.hexed = function(settings){
 	}
 
 	function playTurn(){
+		startTime = (new Date()).getTime();
 		color = getRandomColor();
 		colorSwatch(color);
 	}
