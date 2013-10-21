@@ -25,6 +25,7 @@
   border: solid; 
   color: #ef2929; 
   font-weight: bold;
+  visibility:hidden;
 }
 
 #GreenText {
@@ -32,6 +33,7 @@
   border: solid; 
   color: #8ae234; 
   font-weight: bold;
+  visibility:hidden;
 }
 
 #BlueText {
@@ -39,6 +41,7 @@
   border: solid; 
   color: #729fcf; 
   font-weight: bold;
+  visibility:hidden
 }
 
 input { 

@@ -4,12 +4,23 @@ $.fn.hexed = function(settings){
 	var startTime;
 	var checkClick = 0;
 	var turns = settings.turns;
+	var color;
+	var game = this;
 
 	/** Function creates a HTML Canvas and adds a circle of color
 	  * @param color - the color as a hex string to make the circle
 	  * @return - a jQuery object contain the created canvas
 	 */
-	function createCanvas(color){
+	function createSwatch(color){
+        //create the color swatch
+        var swatch = $(" <div id=\"swatch\" class=\"ui-widget-content ui-corner-all\"></div>")
+        swatch.css( "background-color", "#" + color );
+        swatch.css("margin-left", "auto");
+        swatch.css("margin-right", "auto");
+        return swatch;
+	}
+
+	function colorSwatch(color){
         //create the color swatch
         $("#swatch").css( "background-color", "#" + color );
          $("#swatch").css("margin-left", "auto");
@@ -37,6 +48,12 @@ $.fn.hexed = function(settings){
         $(name+"Text").change(function () {
             $(name+"Range").slider("value", parseInt(this.value));
         }); 
+
+        //Show the text box
+        $(name+"Text").css("visibility","visible");
+
+        //start the text box at zero
+        $(name+"Text").val(0);
     }
 
 	/** Function to get the value of a slider based on the name
@@ -54,16 +71,10 @@ $.fn.hexed = function(settings){
 		var button = $("<br><input>");
 		button.attr("type", "button");
 		button.attr("value", "GO");
+		button.attr("id", "submitButton");
         //the if statement makes sure that the user starts the game before they submit any 
 		  //answer to the test. 
-		button.click( function(){
-			if (checkClick != 0){
-			  scoreGame(color, "Red", "Green", "Blue");
-			  turns -= 1;
-			} else {
-				alert("You must first start the game!");
-			}
-		});
+		button.click(endTurn);
 
 		return button;
 	}
@@ -77,6 +88,7 @@ $.fn.hexed = function(settings){
 
 		button.click( function(){
 			checkClick = 1;
+			init();
 			startTime = (new Date()).getTime();
 		});
 
@@ -133,20 +145,52 @@ $.fn.hexed = function(settings){
 		scoreBoard.append(scoreElement);
 	}
 
-	//Get a random hex color
-	var color = getRandomColor();
+	function init(){
+		//Get a random hex color
+		color = getRandomColor();
+
+		//Clear any existing html out of the game object
+		game.html("");
+		//Added the needed elements for the game
+		$("#turns-left").append("You have " + turns + " turns left!");
+	    game.append(createSwatch(color));
+	    game.append(createSlider("#Red"));
+	    game.append(createSlider("#Green"));
+	    game.append(createSlider("#Blue"));
+		$("#go-score").append(createSubmitButton());
+		$("#go-score").append(createScoreBoard());	
+	}
+
+	/** Function called when the user is ready to end their turn
+	  */
+	function endTurn(){
+		//Check to see if its the end of turn
+		if (checkClick != 0 && turns > 0){
+			scoreGame(color, "Red", "Green", "Blue");
+			turns -= 1;
+			checkClick = 0;
+			$("#submitButton").prop("value", "Next");
+			$("#turns-left").text("You have " + turns + "turns left!");
+		//check to see if the users is ready for their next turn
+		} else if (turns >0){
+			checkClick = 1;
+			playTurn();
+			$("#submitButton").prop("value", "GO");
+
+		//Else the game is over
+		} else {
+			alert("GAME OVER");
+		}
+	}
+
+	function playTurn(){
+		color = getRandomColor();
+		colorSwatch(color);
+	}
 
 	//Clear any existing html out of the game object
 	this.html("");
-	//startTime = (new Date()).getTime();
 	//Added the needed elements for the game
 	this.append(createStartButton());
-	$("#turns-left").append("You have: " + turns + "left!");
-    this.append(createCanvas(color));
-    this.append(createSlider("#Red"));
-    this.append(createSlider("#Green"));
-    this.append(createSlider("#Blue"));
-	$("#go-score").append(createSubmitButton());
-	$("#go-score").append(createScoreBoard());	
 
 };
