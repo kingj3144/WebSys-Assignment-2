@@ -116,9 +116,10 @@ $.fn.hexed = function(settings){
 		//var score = (Math.abs(scoreHelper(color.substring(0, 2), getSliderValue(name1))) + 
 		//			Math.abs(scoreHelper(color.substring(2, 4), getSliderValue(name2))) + 
 		//			Math.abs(scoreHelper(color.substring(4, 6), getSliderValue(name3))))/3;
-		var score = (scoreHelper(color.substring(0, 2), parseInt(getSliderValue(name1), 16)) + 
-					scoreHelper(color.substring(2, 4), parseInt(getSliderValue(name2), 16)) + 
-					scoreHelper(color.substring(4, 6), parseInt(getSliderValue(name3), 16)))/3;
+        var redScore = scoreHelper(color.substring(0, 2), parseInt(getSliderValue(name1), 16));
+        var blueScore = scoreHelper(color.substring(2, 4), parseInt(getSliderValue(name2), 16));
+        var greenScore = scoreHelper(color.substring(4, 6), parseInt(getSliderValue(name3), 16));
+		var score = (redScore + blueScore + greenScore)/3;
 		
 		console.debug(score);
 		score = ((15 - difficulty - score)/(15 - difficulty))*(15000 - (startTime - (new Date()).getTime()));
@@ -128,7 +129,7 @@ $.fn.hexed = function(settings){
 		}
 
         var userColor = getSliderValue(name1)+getSliderValue(name2)+getSliderValue(name3);
-		addScore(Math.round(score), userColor);
+		addScore(Math.round(score), redScore, blueScore, greenScore, userColor);
 	}
 
 	function scoreHelper(desired, actual){
@@ -138,16 +139,21 @@ $.fn.hexed = function(settings){
 		var score = ((parseInt(desired, 16) - (parseInt(actual, 16)))/255) * 100;
 		
 		// console.debug(score);
-		return score;
+		return Math.abs(score);
 	}
 
-	function addScore(score, color){
+	function addScore(score, redScore, blueScore, greenScore, color){
+        redScore = redScore.toPrecision(3);
+        blueScore = blueScore.toPrecision(3);
+        greenScore = greenScore.toPrecision(3);
 		var scoreBoard = $("#scoreBoard");
 		var scoreElement =$("<span></span><br>");
 		scoreElement.css("background-color", "#" + color);
+        scoreElement.css("padding-left", "40px");
 		scoreElement.css("width", "200px");
 		scoreElement.css("boader-style", "solid");
-		scoreElement.html(score);
+		scoreElement.html('<font style="background-color:white;">&nbsp;Score: '+score+
+                            " | Red: "+redScore+"% Blue: "+blueScore+"% Green: "+greenScore+"%</font>");
 
 		scoreBoard.append(scoreElement);
 	}
