@@ -68,21 +68,21 @@ $.fn.hexed = function(settings){
 	  * @return a jQuery object with a submit button
 	  */
 	function createSubmitButton(){
-		var button = $("<br><input>");
+		var button = $("<input>");
+		button.attr("id", "submitButton");
 		button.attr("type", "button");
 		button.attr("value", "Got it!");
-		button.attr("id", "submitButton");
         //the if statement makes sure that the user starts the game before they submit any 
 		  //answer to the test. 
 		button.click(endTurn);
 
-		return button;
+		return  (button);
 	}
 	/** Funtion to create the start button
 	  * @return a jQuery object with a start button
 	  */
 	function createStartButton(){
-		var button = $("<br><input>");
+		var button = $("<input>");
 		button.attr("type", "button");
 		button.attr("value", "Start");
 
@@ -116,7 +116,6 @@ $.fn.hexed = function(settings){
 		//var score = (Math.abs(scoreHelper(color.substring(0, 2), getSliderValue(name1))) + 
 		//			Math.abs(scoreHelper(color.substring(2, 4), getSliderValue(name2))) + 
 		//			Math.abs(scoreHelper(color.substring(4, 6), getSliderValue(name3))))/3;
-	alert(getSliderValue(name1));
 		var score = (scoreHelper(color.substring(0, 2), parseInt(getSliderValue(name1), 16)) + 
 					scoreHelper(color.substring(2, 4), parseInt(getSliderValue(name2), 16)) + 
 					scoreHelper(color.substring(4, 6), parseInt(getSliderValue(name3), 16)))/3;
@@ -134,7 +133,7 @@ $.fn.hexed = function(settings){
 		if(desired == undefined || actual == undefined){
 			console.debug("Something is wrong");
 		}
-		var score = ((parseInt(desired, 16) - actual)/255) * 100;
+		var score = ((parseInt(desired, 16) - (parseInt(actual, 16)))/255) * 100;
 		
 		// console.debug(score);
 		return score;
@@ -176,13 +175,15 @@ $.fn.hexed = function(settings){
 			scoreGame(color, "Red", "Green", "Blue");
 			turns -= 1;
 			checkClick = 0;
-			$("#submitButton").prop("value", "Next");
+			console.debug($("#submitButton"));
+			$("#submitButton").attr("value", "Next");
+			console.debug($("#submitButton"));
 			$("#turns-left").text("You have " + turns + " turns left!");
 		//check to see if the users is ready for their next turn
 		} else if (turns >0){
 			checkClick = 1;
 			playTurn();
-			$("#submitButton").prop("value", "GO");
+			$("#submitButton").attr("value", "Got It!");
 
 		//Else the game is over
 		} else {
