@@ -12,6 +12,8 @@ $.fn.hexed = function(settings){
 	function createCanvas(color){
         //create the color swatch
         $("#swatch").css( "background-color", "#" + color );
+         $("#swatch").css("margin-left", "auto");
+         $("#swatch").css("margin-right", "auto");
 	}
 
 	/** Funtion that created a slider with a title and textbox
