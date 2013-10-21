@@ -4,7 +4,6 @@ $.fn.hexed = function(settings){
 	var startTime;
 	var checkClick = 0;
 	var turns = settings.turns;
-	var turnCounter = 0;
 	var color;
 	var game = this;
 
@@ -70,16 +69,10 @@ $.fn.hexed = function(settings){
 		var button = $("<br><input>");
 		button.attr("type", "button");
 		button.attr("value", "GO");
+		button.attr("id", "submitButton");
         //the if statement makes sure that the user starts the game before they submit any 
 		  //answer to the test. 
-		button.click( function(){
-			if (checkClick != 0){
-			  scoreGame(color, "Red", "Green", "Blue");
-			  turns -= 1;
-			} else {
-				alert("You must first start the game!");
-			}
-		});
+		button.click(endTurn);
 
 		return button;
 	}
@@ -157,7 +150,7 @@ $.fn.hexed = function(settings){
 		//Clear any existing html out of the game object
 		game.html("");
 		//Added the needed elements for the game
-		$("#turns-left").append("You have " + turns + "turns left!");
+		$("#turns-left").append("You have " + turns + " turns left!");
 	    game.append(createSwatch(color));
 	    game.append(createSlider("#Red"));
 	    game.append(createSlider("#Green"));
@@ -167,11 +160,24 @@ $.fn.hexed = function(settings){
 	}
 
 	function endTurn(){
-
+		if (checkClick != 0 && turns > 0){
+			scoreGame(color, "Red", "Green", "Blue");
+			turns -= 1;
+			checkClick = 0;
+			$("#submitButton").prop("value", "Next");
+			$("#turns-left").text("You have " + turns + "turns left!");
+		} else if (turns >0){
+			checkClick = 1;
+			playTurn();
+			$("#submitButton").prop("value", "GO");
+		} else {
+			alert("GAME OVER");
+		}
 	}
 
 	function playTurn(){
 		color = getRandomColor();
+		colorSwatch(color);
 	}
 
 	//Clear any existing html out of the game object
