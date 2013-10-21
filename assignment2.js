@@ -126,7 +126,9 @@ $.fn.hexed = function(settings){
 		if (score < 0) {
 			score = 0;
 		}
-		addScore(Math.round(score), color);
+
+        var userColor = getSliderValue(name1)+getSliderValue(name2)+getSliderValue(name3);
+		addScore(Math.round(score), userColor);
 	}
 
 	function scoreHelper(desired, actual){
