@@ -16,6 +16,8 @@ $.fn.hexed = function(settings){
         //create the color swatch
         var swatch = $(" <div id=\"swatch\" class=\"ui-widget-content ui-corner-all\"></div>")
         swatch.css( "background-color", "#" + color );
+        swatch.css("margin-left", "auto");
+        swatch.css("margin-right", "auto");
         return swatch;
 	}
 
@@ -93,7 +95,6 @@ $.fn.hexed = function(settings){
 			checkClick = 1;
 			init();
 			startTime = (new Date()).getTime();
-			init();
 		});
 
 		return button;
@@ -156,13 +157,17 @@ $.fn.hexed = function(settings){
 		//Clear any existing html out of the game object
 		game.html("");
 		//Added the needed elements for the game
-		$("#turns-left").append("You have: " + turns + "left!");
+		$("#turns-left").append("You have " + turns + "turns left!");
 	    game.append(createSwatch(color));
 	    game.append(createSlider("#Red"));
 	    game.append(createSlider("#Green"));
 	    game.append(createSlider("#Blue"));
 		$("#go-score").append(createSubmitButton());
 		$("#go-score").append(createScoreBoard());	
+	}
+
+	function endTurn(){
+
 	}
 
 	function playTurn(){
