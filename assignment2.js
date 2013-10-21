@@ -3,6 +3,7 @@ $.fn.hexed = function(settings){
 	var difficulty = settings.difficulty;
 	var startTime;
 	var checkClick = 0;
+	var turns = settings.turns;
 
 	/** Function creates a HTML Canvas and adds a circle of color
 	  * @param color - the color as a hex string to make the circle
@@ -56,6 +57,7 @@ $.fn.hexed = function(settings){
 		button.click( function(){
 			if (checkClick != 0){
 			  scoreGame(color, "Red", "Green", "Blue");
+			  turns -= 1;
 			} else {
 				alert("You must first start the game!");
 			}
@@ -137,6 +139,7 @@ $.fn.hexed = function(settings){
 	//startTime = (new Date()).getTime();
 	//Added the needed elements for the game
 	this.append(createStartButton());
+	$("#turns-left").append("You have: " + turns + "left!");
     this.append(createCanvas(color));
     this.append(createSlider("#Red"));
     this.append(createSlider("#Green"));
