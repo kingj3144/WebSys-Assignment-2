@@ -4,12 +4,22 @@ $.fn.hexed = function(settings){
 	var startTime;
 	var checkClick = 0;
 	var turns = settings.turns;
+	var turnCounter = 0;
+	var color;
+	var game = this;
 
 	/** Function creates a HTML Canvas and adds a circle of color
 	  * @param color - the color as a hex string to make the circle
 	  * @return - a jQuery object contain the created canvas
 	 */
-	function createCanvas(color){
+	function createSwatch(color){
+        //create the color swatch
+        var swatch = $(" <div id=\"swatch\" class=\"ui-widget-content ui-corner-all\"></div>")
+        swatch.css( "background-color", "#" + color );
+        return swatch;
+	}
+
+	function colorSwatch(color){
         //create the color swatch
         $("#swatch").css( "background-color", "#" + color );
 	}
@@ -35,6 +45,12 @@ $.fn.hexed = function(settings){
         $(name+"Text").change(function () {
             $(name+"Range").slider("value", parseInt(this.value));
         }); 
+
+        //Show the text box
+        $(name+"Text").css("visibility","visible");
+
+        //start the text box at zero
+        $(name+"Text").val(0);
     }
 
 	/** Function to get the value of a slider based on the name
@@ -75,7 +91,9 @@ $.fn.hexed = function(settings){
 
 		button.click( function(){
 			checkClick = 1;
+			init();
 			startTime = (new Date()).getTime();
+			init();
 		});
 
 		return button;
@@ -131,20 +149,29 @@ $.fn.hexed = function(settings){
 		scoreBoard.append(scoreElement);
 	}
 
-	//Get a random hex color
-	var color = getRandomColor();
+	function init(){
+		//Get a random hex color
+		color = getRandomColor();
+
+		//Clear any existing html out of the game object
+		game.html("");
+		//Added the needed elements for the game
+		$("#turns-left").append("You have: " + turns + "left!");
+	    game.append(createSwatch(color));
+	    game.append(createSlider("#Red"));
+	    game.append(createSlider("#Green"));
+	    game.append(createSlider("#Blue"));
+		$("#go-score").append(createSubmitButton());
+		$("#go-score").append(createScoreBoard());	
+	}
+
+	function playTurn(){
+		color = getRandomColor();
+	}
 
 	//Clear any existing html out of the game object
 	this.html("");
-	//startTime = (new Date()).getTime();
 	//Added the needed elements for the game
 	this.append(createStartButton());
-	$("#turns-left").append("You have: " + turns + "left!");
-    this.append(createCanvas(color));
-    this.append(createSlider("#Red"));
-    this.append(createSlider("#Green"));
-    this.append(createSlider("#Blue"));
-	$("#go-score").append(createSubmitButton());
-	$("#go-score").append(createScoreBoard());	
 
 };
