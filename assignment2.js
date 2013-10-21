@@ -7,6 +7,7 @@ $.fn.hexed = function(settings){
 	var color;
 	var game = this;
 
+
 	/** Function creates a HTML Canvas and adds a circle of color
 	  * @param color - the color as a hex string to make the circle
 	  * @return - a jQuery object contain the created canvas
@@ -61,7 +62,12 @@ $.fn.hexed = function(settings){
 	  * @return - The value of the slider
 	  */
 	function getSliderValue(name){
-		return $("#" + name + "Text")[0].value;
+		return componentToHex($("#" + name + "Text")[0].value);
+	}
+
+	function componentToHex(c){
+		var hex = c.toString(16);
+		return hex.length == 1 ? "0" + hex : hex;
 	}
 
 	/** Funtion to create the submit button
@@ -116,6 +122,9 @@ $.fn.hexed = function(settings){
 		//var score = (Math.abs(scoreHelper(color.substring(0, 2), getSliderValue(name1))) + 
 		//			Math.abs(scoreHelper(color.substring(2, 4), getSliderValue(name2))) + 
 		//			Math.abs(scoreHelper(color.substring(4, 6), getSliderValue(name3))))/3;
+		if(getSliderValue(name1) === '1'){
+
+		}
         var redScore = scoreHelper(color.substring(0, 2), parseInt(getSliderValue(name1), 16));
         var blueScore = scoreHelper(color.substring(2, 4), parseInt(getSliderValue(name2), 16));
         var greenScore = scoreHelper(color.substring(4, 6), parseInt(getSliderValue(name3), 16));
