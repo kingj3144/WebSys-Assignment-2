@@ -10,11 +10,7 @@ $.fn.hexed = function(settings){
 	 */
 	function createCanvas(color){
         //create the color swatch
-		if (checkClick != 0){
-          $("#swatch").css( "background-color", "#" + color );
-		} else {
-			alert("You must first begin the game, click the start button to begin!");
-		}
+        $("#swatch").css( "background-color", "#" + color );
 	}
 
 	/** Funtion that created a slider with a title and textbox
@@ -145,7 +141,7 @@ $.fn.hexed = function(settings){
     this.append(createSlider("#Red"));
     this.append(createSlider("#Green"));
     this.append(createSlider("#Blue"));
-	this.append(createSubmitButton());
-	this.append(createScoreBoard());	
+	$("#go-score").append(createSubmitButton());
+	$("#go-score").append(createScoreBoard());	
 
 };

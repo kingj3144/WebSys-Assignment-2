@@ -41,13 +41,4 @@
   font-weight: bold;
 }
 
-input { 
-  width: 50px;
-}
-/* following will be used to center align all the content, to make it 'nicer' to use */
-.center-content {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-}
+input { width: 50px ;}
