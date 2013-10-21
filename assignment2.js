@@ -159,17 +159,23 @@ $.fn.hexed = function(settings){
 		$("#go-score").append(createScoreBoard());	
 	}
 
+	/** Function called when the user is ready to end their turn
+	  */
 	function endTurn(){
+		//Check to see if its the end of turn
 		if (checkClick != 0 && turns > 0){
 			scoreGame(color, "Red", "Green", "Blue");
 			turns -= 1;
 			checkClick = 0;
 			$("#submitButton").prop("value", "Next");
 			$("#turns-left").text("You have " + turns + "turns left!");
+		//check to see if the users is ready for their next turn
 		} else if (turns >0){
 			checkClick = 1;
 			playTurn();
 			$("#submitButton").prop("value", "GO");
+
+		//Else the game is over
 		} else {
 			alert("GAME OVER");
 		}
