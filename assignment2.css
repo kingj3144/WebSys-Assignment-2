@@ -47,6 +47,7 @@ input {
 /* following will be used to center align all the content, to make it 'nicer' to use */
 .center-content {
     display: block;
+    width: 500px;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
