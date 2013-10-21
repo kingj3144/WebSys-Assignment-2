@@ -8,30 +8,8 @@ $.fn.hexed = function(settings){
 	  * @return - a jQuery object contain the created canvas
 	 */
 	function createCanvas(color){
-		//create a blank canvas
-		var canvas = $("<canvas></canvas>");
-		canvas.attr("id", "canvas");
-		canvas.attr("height", 200);
-		canvas.attr("width", 200);
-
-		var context = canvas[0].getContext("2d");
-		// Set the color of the fill
-		context.fillStyle="#" + color;
-
-		// Start a new path
-		context.beginPath();
-
-		context.arc(125,75,50,0,Math.PI*2,true);
-
-		// Close the path
-		context.closePath();
-
-		// Fills in the arc. Since we set the fillStyle to have color red, it fill it red.
-		context.fill();
-		context.lineWidth = 3;
-		context.stroke();
-
-		return canvas;
+        //create the color swatch
+        $("#swatch").css( "background-color", "#" + color );
 	}
 
 	/** Funtion that created a slider with a title and textbox
@@ -39,45 +17,23 @@ $.fn.hexed = function(settings){
 	  * @returns - jQuery object containing a span with a title, slider and textbox
 	  */
 	function createSlider(name){
-		//Create the slider
-		var slider = $("<input>");
-		slider.attr("type", "range");
-		slider.attr("name", name+"Range");
-		slider.attr("id", name+"Range");
-		slider.attr("min", 0);
-		slider.attr("max",255);
-		slider.attr("value", 0);
-		slider.value = 0;
+       //Create the slider
+        $(name+"Range").slider({
+          range: "min",
+          value: 1,
+          step: 1,
+          min: 0,
+          max: 255,
+          slide: function( event, ui ) {
+            $(name+"Text").val( ui.value );             
+          }
+        });
 
-		//Create the text box
-		var textBox = $("<input>");
-		textBox.attr("name", name+"Text");
-		textBox.attr("id", name+"Text");
-		textBox.attr("type", "text");
-		textBox.attr("value", 0);
-		textBox.value = 0;
-
-		//Link the slider to the textbox
-		slider.change( function(){
-			$("#" + name + "Text").val(this.value);
-		});
-
-		//Link the text box to the slider
-		textBox.change( function(){	
-			$("#" + name + "Range").val( parseInt(this.value));
-		});
-
-		//Create a span to contain the slider and textbox
-		var container = $("<span></span>");
-		container.addClass("slider");
-		container.attr("id", name);
-		container.append($("<h4>"+name+"</h4>"));
-		container.append(slider);
-		container.append(textBox);
-
-		//retrun the container with the slider and the text box
-		return container;
-	}
+        //Link the text box to the slider
+        $(name+"Text").change(function () {
+            $(name+"Range").slider("value", parseInt(this.value));
+        }); 
+    }
 
 	/** Function to get the value of a slider based on the name
 	  * @param - The name of the slider
@@ -159,10 +115,10 @@ $.fn.hexed = function(settings){
 	this.html("");
 	startTime = (new Date()).getTime();
 	//Added the needed elements for the game
-	this.append(createCanvas(color));
-	this.append(createSlider("Red"));
-	this.append(createSlider("Green"));
-	this.append(createSlider("Blue"));
+    this.append(createCanvas(color));
+    this.append(createSlider("#Red"));
+    this.append(createSlider("#Green"));
+    this.append(createSlider("#Blue"));
 	this.append(createSubmitButton());
 	this.append(createScoreBoard());	
 
