@@ -147,15 +147,15 @@ $.fn.hexed = function(settings){
         blueScore = blueScore.toPrecision(3);
         greenScore = greenScore.toPrecision(3);
 		var scoreBoard = $("#scoreBoard");
-		var scoreElement =$("<span></span><br>");
+		var scoreElement =$("<div></div>");
+		scoreElement.attr("class", "scoreElement");
 		scoreElement.css("background-color", "#" + color);
-        scoreElement.css("padding-left", "40px");
-		scoreElement.css("width", "200px");
-		scoreElement.css("boader-style", "solid");
 		scoreElement.html('<font style="background-color:white;">&nbsp;Score: '+score+
                             " | Red: "+redScore+"% Blue: "+blueScore+"% Green: "+greenScore+"%</font>");
 
 		scoreBoard.append(scoreElement);
+		// scoreBoard.append($("<br />"));
+		
 	}
 
 	function init(){
@@ -183,9 +183,7 @@ $.fn.hexed = function(settings){
 			scoreGame(color, "Red", "Green", "Blue");
 			turns -= 1;
 			checkClick = 0;
-			console.debug($("#submitButton"));
 			$("#submitButton").attr("value", "Next");
-			console.debug($("#submitButton"));
 			$("#turns-left").text("You have " + turns + " turns left!");
 		//check to see if the users is ready for their next turn
 		} else if (turns >0){
