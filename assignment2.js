@@ -2,6 +2,7 @@ $.fn.hexed = function(settings){
 
 	var difficulty = settings.difficulty;
 	var startTime;
+	var checkClick = 0;
 
 	/** Function creates a HTML Canvas and adds a circle of color
 	  * @param color - the color as a hex string to make the circle
@@ -9,7 +10,11 @@ $.fn.hexed = function(settings){
 	 */
 	function createCanvas(color){
         //create the color swatch
-        $("#swatch").css( "background-color", "#" + color );
+		if (checkClick != 0){
+          $("#swatch").css( "background-color", "#" + color );
+		} else {
+			alert("You must first begin the game, click the start button to begin!");
+		}
 	}
 
 	/** Funtion that created a slider with a title and textbox
@@ -50,9 +55,29 @@ $.fn.hexed = function(settings){
 		var button = $("<br><input>");
 		button.attr("type", "button");
 		button.attr("value", "GO");
+        //the if statement makes sure that the user starts the game before they submit any 
+		  //answer to the test. 
+		button.click( function(){
+			if (checkClick != 0){
+			  scoreGame(color, "Red", "Green", "Blue");
+			} else {
+				alert("You must first start the game!");
+			}
+		});
+
+		return button;
+	}
+	/** Funtion to create the start button
+	  * @return a jQuery object with a start button
+	  */
+	function createStartButton(){
+		var button = $("<br><input>");
+		button.attr("type", "button");
+		button.attr("value", "Start");
 
 		button.click( function(){
-			scoreGame(color, "Red", "Green", "Blue");
+			checkClick = 1;
+			startTime = (new Date()).getTime();
 		});
 
 		return button;
@@ -113,8 +138,9 @@ $.fn.hexed = function(settings){
 
 	//Clear any existing html out of the game object
 	this.html("");
-	startTime = (new Date()).getTime();
+	//startTime = (new Date()).getTime();
 	//Added the needed elements for the game
+	this.append(createStartButton());
     this.append(createCanvas(color));
     this.append(createSlider("#Red"));
     this.append(createSlider("#Green"));
