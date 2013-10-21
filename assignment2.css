@@ -1,0 +1,44 @@
+#RedRange, #GreenRange, #BlueRange {
+  float: left;
+  clear: left;
+  width: 325px;
+  margin: 15px;
+}
+
+#RedRange .ui-slider-range { background: #ef2929; }
+#RedRange .ui-slider-handle { border-color: #ef2929; }
+#GreenRange .ui-slider-range { background: #8ae234; }
+#GreenRange .ui-slider-handle { border-color: #8ae234; }
+#BlueRange .ui-slider-range { background: #729fcf; }
+#BlueRange .ui-slider-handle { border-color: #729fcf; }
+
+#swatch {
+  width: 120px;
+  height: 100px;
+  margin-top: 18px;
+  margin-left: 10px;
+  background-image: none;
+}
+
+#RedText {
+  margin: 12px;
+  border: solid; 
+  color: #ef2929; 
+  font-weight: bold;
+}
+
+#GreenText {
+  margin: 12px;
+  border: solid; 
+  color: #8ae234; 
+  font-weight: bold;
+}
+
+#BlueText {
+  margin: 12px;
+  border: solid; 
+  color: #729fcf; 
+  font-weight: bold;
+}
+
+input { width: 50px ;}
