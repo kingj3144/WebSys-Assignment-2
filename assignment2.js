@@ -113,9 +113,14 @@ $.fn.hexed = function(settings){
 	}
 
 	function scoreGame(color, name1, name2, name3){
-		var score = (Math.abs(scoreHelper(color.substring(0, 2), getSliderValue(name1))) + 
-					Math.abs(scoreHelper(color.substring(2, 4), getSliderValue(name2))) + 
-					Math.abs(scoreHelper(color.substring(4, 6), getSliderValue(name3))))/3;
+		//var score = (Math.abs(scoreHelper(color.substring(0, 2), getSliderValue(name1))) + 
+		//			Math.abs(scoreHelper(color.substring(2, 4), getSliderValue(name2))) + 
+		//			Math.abs(scoreHelper(color.substring(4, 6), getSliderValue(name3))))/3;
+	alert(getSliderValue(name1));
+		var score = (scoreHelper(color.substring(0, 2), parseInt(getSliderValue(name1), 16)) + 
+					scoreHelper(color.substring(2, 4), parseInt(getSliderValue(name2), 16)) + 
+					scoreHelper(color.substring(4, 6), parseInt(getSliderValue(name3), 16)))/3;
+		
 		console.debug(score);
 		score = ((15 - difficulty - score)/(15 - difficulty))*(15000 - (startTime - (new Date()).getTime()));
 		console.debug(score);
@@ -129,7 +134,8 @@ $.fn.hexed = function(settings){
 		if(desired == undefined || actual == undefined){
 			console.debug("Something is wrong");
 		}
-		var score = (parseInt(desired, 16) - actual.valueOf())/255 * 100;
+		var score = ((parseInt(desired, 16) - actual)/255) * 100;
+		
 		// console.debug(score);
 		return score;
 	}
@@ -166,6 +172,7 @@ $.fn.hexed = function(settings){
 	function endTurn(){
 		//Check to see if its the end of turn
 		if (checkClick != 0 && turns > 0){
+			//scoreGame(color, "Red", "Green", "Blue");
 			scoreGame(color, "Red", "Green", "Blue");
 			turns -= 1;
 			checkClick = 0;
