@@ -6,7 +6,7 @@ $.fn.hexed = function(settings){
 	var turns = settings.turns;
 	var color;
 	var game = this;
-
+	var scores={};
 
 	/** Function creates a HTML Canvas and adds a circle of color
 	  * @param color - the color as a hex string to make the circle
@@ -161,7 +161,7 @@ $.fn.hexed = function(settings){
 		scoreElement.css("background-color", "#" + color);
 		scoreElement.html('<font style="background-color:white;">&nbsp;Score: '+score+
                             " | Red: "+redScore+"% Blue: "+blueScore+"% Green: "+greenScore+"%&nbsp</font>");
-
+		scores[settings.turns-turns] = score;
 		scoreBoard.append(scoreElement);
 		// scoreBoard.append($("<br />"));
 		
@@ -202,6 +202,7 @@ $.fn.hexed = function(settings){
 
 		//Else the game is over
 		} else {
+			console.debug(scores);
 			alert("GAME OVER");
 		}
 	}
