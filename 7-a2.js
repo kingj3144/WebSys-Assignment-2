@@ -204,6 +204,21 @@ $.fn.hexed = function(settings){
 		} else {
 			console.debug(scores);
 			alert("GAME OVER");
+
+			//Store scores in html5 webstorage
+			if(typeof(Storage)!=="undefined") {
+				var highScore = 0;
+				for(var s = 0;s < scores.length;s++) {
+					console.debug(s);
+					highScore += scores[s];
+				}
+				console.debug("Score: " + highScore);
+				if(localStorage.hexedHighScore == undefined) localStorage.hexedHighScore = -1;
+				if(highScore > localStorage.hexedHighScore) {
+					localStorage.hexedHighScore = highScore;
+					alert("You have reached a new high score!");
+				}
+			}
 		}
 	}
 
